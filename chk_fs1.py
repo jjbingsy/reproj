@@ -1,5 +1,6 @@
 import sqlite3
 import bs4
+import re
 
 #check original fim_sources
 FILMSOURCES_PATH = "/home/bing/dat2/filmSources.db" #Original filmsources
@@ -52,3 +53,6 @@ guru = cur_orig.fetchall()
 for i, u, c in guru:
     print (i, u)        #print(soup.prettify())
     soup = bs4.BeautifulSoup(c, "lxml")
+    idols = soup.find_all('a', {'href': re.compile(f"/actresses/")}, class_="text-nord13 font-medium")
+    for idol in idols:
+        print(idol.string, idol["href"])
