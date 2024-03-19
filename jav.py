@@ -6,7 +6,18 @@ from env.env_001 import FILMSOURCES_PATH, IDOLSDB_PATH
 #check original fim_sources
 # FILMSOURCES_PATH = "/home/bing/dat2/filmSources.db" #Original filmsources
 # IDOLSDB_PATH = "/home/bing/dat2/idolsdb.db" # 2nd film_sources
-
+'''
+SELECT column_name
+FROM (
+    SELECT column_name FROM table1
+    UNION ALL
+    SELECT column_name FROM table2
+    UNION ALL
+    SELECT column_name FROM table3
+) AS combined
+GROUP BY column_name
+HAVING COUNT(*) = 1
+'''
 conn_orig = sqlite3.connect(FILMSOURCES_PATH)
 conn2 = sqlite3.connect(IDOLSDB_PATH)
 
