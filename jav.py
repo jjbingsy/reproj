@@ -1,10 +1,11 @@
 import sqlite3
 import bs4
 import re
+from env.env_001 import FILMSOURCES_PATH, IDOLSDB_PATH
 
 #check original fim_sources
-FILMSOURCES_PATH = "/home/bing/dat2/filmSources.db" #Original filmsources
-IDOLSDB_PATH = "/home/bing/dat2/idolsdb.db" # 2nd film_sources
+# FILMSOURCES_PATH = "/home/bing/dat2/filmSources.db" #Original filmsources
+# IDOLSDB_PATH = "/home/bing/dat2/idolsdb.db" # 2nd film_sources
 
 conn_orig = sqlite3.connect(FILMSOURCES_PATH)
 conn2 = sqlite3.connect(IDOLSDB_PATH)
