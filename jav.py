@@ -30,20 +30,12 @@ guru = cur_orig.fetchall()
 
 # Create the film_idol table
 cur2 = conn_orig.cursor()
-cur2.execute('drop table film_idol')
-cur2.execute('''CREATE TABLE  film_idol (
-                    i TEXT,
-                    idol_link TEXT,
-                    u TEXT,
-                    idol_name TEXT,
-                    PRIMARY KEY (i, idol_link)
-                )''')
 
-for i, u, c in guru:
-    print(i, u)
-    soup = bs4.BeautifulSoup(c, "lxml")
+for film_name, url_source, content in guru:
+    print(film_name, url_source)
+    soup = bs4.BeautifulSoup(content, "lxml")
 
-    if "database" in u:
+    if "database" in url_source:
         idols = soup.find_all('div', class_='idol-thumb')
         for idol in idols:
             idol_name = None
@@ -55,9 +47,9 @@ for i, u, c in guru:
             if idol_name:
                 print(idol_name, idol_link)
                 # Insert the data into the film_idol table
-                cur2.execute("INSERT or ignore INTO film_idol (i, idol_link, u, idol_name) VALUES (?, ?, ?, ?)",
-                             (str(i), str(idol_link), str(u), str(idol_name)))
-    elif "missav" in u:
+                cur2.execute("INSERT or ignore INTO film_idols VALUES (?, ?, ?, ?)",
+                             (str(film_name), str(idol_link), str(url_source), str(idol_name)))
+    elif "missav" in url_source:
         idols = soup.find_all('a', {'href': re.compile(f"/actresses/")}, class_="text-nord13 font-medium")
         for idol in idols:
             idol_name = None
@@ -67,8 +59,8 @@ for i, u, c in guru:
             if idol_name:
                 print(idol_name, idol_link)
                 # Insert the data into the film_idol table
-                cur2.execute("INSERT or ignore INTO film_idol (i, idol_link, u, idol_name) VALUES (?, ?, ?, ?)",
-                             (str(i), str(idol_link), str(u), str(idol_name)))
+                cur2.execute("INSERT or ignore INTO film_idols VALUES (?, ?, ?, ?)",
+                             (str(film_name), str(idol_link), str(url_source), str(idol_name)))
     else:
         idols = soup.find("div", class_="infoleft").select('a[href*="jav.guru/actress/"]')
         for idol in idols:
@@ -78,11 +70,11 @@ for i, u, c in guru:
             idol_name = idol.string.strip()
             if idol_name:
 
-                if i and idol_link and idol_name and  u:
+                if film_name and idol_link and idol_name and  url_source:
                     # Insert the data into the film_idol table
-                    print(i, idol_link, idol_name, u)
-                    cur2.execute("INSERT or ignore INTO film_idol (i, idol_link, u, idol_name) VALUES (?, ?, ?, ?)",
-                             (str(i), str(idol_link), str(u), str(idol_name)))
+                    print(film_name, idol_link, idol_name, url_source)
+                cur2.execute("INSERT or ignore INTO film_idols VALUES (?, ?, ?, ?)",
+                             (str(film_name), str(idol_link), str(url_source), str(idol_name)))
 
 conn_orig.commit()
 conn_orig.close()
