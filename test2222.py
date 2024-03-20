@@ -137,12 +137,24 @@ for fn, il in s:
     cur.execute('delete from film_idols where film_name = ? and idol_link = ?', (fn,il))
 conn.commit()
 
-cur.execute ('select count(*) from film_idols')
-print ("final film_idols count:", cur.fetchone()[0])
-fi = cur.execute ('select * from film_idols')
+# cur.execute ('select count(*) from film_idols')
+# print ("final film_idols count:", cur.fetchone()[0])
+# fi = cur.execute ('select * from film_idols')
 
-for row in fi.fetchall():
-    print (row)
+cur.execute ('''
+            select f1.idol_link, f2.idol_link, f3.idol_link, count(*)
+            from film_idols f1 
+                join film_idols f2 on f1.film_name = f2.film_name
+                join film_idols f3 on f1.film_name = f3.film_name
+            where f1.idol_link like '%jav.guru%' and f2.idol_link like '%missav.com%' and f3.idol_link like '%javdatabase.com%'
+            group by f1.idol_link, f2.idol_link, f3.idol_link
+
+             
+             ''')
+
+for idol_1, idol_2, idol_3, ii in cur.fetchall():
+    if ii> 2:
+        print (idol_1, idol_2, idol_3, ii)
 
 
 # cur.execute ('select * from idols order by idol_ID')
