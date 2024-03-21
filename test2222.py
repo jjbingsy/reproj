@@ -160,7 +160,8 @@ with (open('myfile1121.txt', 'w')) as f:
         cur.execute('select count(*) from film_idols where idol_link = ?', (idol_3,))
         c3 = cur.fetchone()[0]
         if ii == c1 and ii == c2 and ii == c3:
-            #print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
+            if ii ==1:
+                print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
             f.write(idol_1 +" " + idol_2 +" "+ idol_3 +" "+ str(ii) + '\n')
                 #print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
             cur.execute('select film_name from film_idols where idol_link = ?', (idol_3,))
@@ -188,83 +189,83 @@ conn.commit()
 cur.execute ('select count(*) from film_idols')
 print ("initial film_idols count:", cur.fetchone()[0])
 
-print('-------------------')
-cur.execute ('''
-            select f1.idol_link, f2.idol_link, count(*)
-            from film_idols f1 
-                join film_idols f2 on f1.film_name = f2.film_name
-            where f1.idol_link like '%jav.guru%' and f2.idol_link like '%javdatabase.com%'
-            group by f1.idol_link, f2.idol_link
+# print('-------------------')
+# cur.execute ('''
+#             select f1.idol_link, f2.idol_link, count(*)
+#             from film_idols f1 
+#                 join film_idols f2 on f1.film_name = f2.film_name
+#             where f1.idol_link like '%jav.guru%' and f2.idol_link like '%javdatabase.com%'
+#             group by f1.idol_link, f2.idol_link
 
              
-             ''')
-for idol_1, idol_2, ii in cur.fetchall():
-    cur.execute('select count(*) from film_idols where idol_link = ?', (idol_1,))
-    c1 = cur.fetchone()[0]
-    cur.execute('select count(*) from film_idols where idol_link = ?', (idol_2,))
-    c2 = cur.fetchone()[0]
-    if ii == c1 and ii == c2:
-        print (idol_1, idol_2, ii, c1, c2)
+#              ''')
+# for idol_1, idol_2, ii in cur.fetchall():
+#     cur.execute('select count(*) from film_idols where idol_link = ?', (idol_1,))
+#     c1 = cur.fetchone()[0]
+#     cur.execute('select count(*) from film_idols where idol_link = ?', (idol_2,))
+#     c2 = cur.fetchone()[0]
+#     if ii == c1 and ii == c2:
+#         print (idol_1, idol_2, ii, c1, c2)
 
-print('-------------------')
-cur.execute ('''
-            select f1.idol_link, f2.idol_link, count(*)
-            from film_idols f1 
-                join film_idols f2 on f1.film_name = f2.film_name
-            where f1.idol_link like '%missav%' and f2.idol_link like '%javdatabase.com%'
-            group by f1.idol_link, f2.idol_link
+# print('-------------------')
+# cur.execute ('''
+#             select f1.idol_link, f2.idol_link, count(*)
+#             from film_idols f1 
+#                 join film_idols f2 on f1.film_name = f2.film_name
+#             where f1.idol_link like '%missav%' and f2.idol_link like '%javdatabase.com%'
+#             group by f1.idol_link, f2.idol_link
 
              
-             ''')
-for idol_1, idol_2, ii in cur.fetchall():
-    cur.execute('select count(*) from film_idols where idol_link = ?', (idol_1,))
-    c1 = cur.fetchone()[0]
-    cur.execute('select count(*) from film_idols where idol_link = ?', (idol_2,))
-    c2 = cur.fetchone()[0]
-    if ii == c1 and ii == c2:
-        print (idol_1, idol_2, ii, c1, c2)
+#              ''')
+# for idol_1, idol_2, ii in cur.fetchall():
+#     cur.execute('select count(*) from film_idols where idol_link = ?', (idol_1,))
+#     c1 = cur.fetchone()[0]
+#     cur.execute('select count(*) from film_idols where idol_link = ?', (idol_2,))
+#     c2 = cur.fetchone()[0]
+#     if ii == c1 and ii == c2:
+#         print (idol_1, idol_2, ii, c1, c2)
 
 
 
 
-        # cur.execute('select film_name from film_idols where idol_link = ?', (idol_2,))
-        # g2 = cur.fetchall()
-        # cur.execute('select film_name from film_idols where idol_link = ?', (idol_1,))
-        # g1 = cur.fetchall()
-        # assert g2 == g1, "g1 != g2"
-        # new_idol_id = get_idol_id()
-        # cur.execute('insert into idols values (?, ?)', (new_idol_id, idol_1))
-        # cur.execute('insert into idols values (?, ?)', (new_idol_id, idol_2))
-        # for film in g2:
-        #     cur.execute('delete from film_idols where film_name = ? and idol_link = ?', (film[0],idol_1))
-        #     cur.execute('delete from film_idols where film_name = ? and idol_link = ?', (film[0],idol_2))
+#         # cur.execute('select film_name from film_idols where idol_link = ?', (idol_2,))
+#         # g2 = cur.fetchall()
+#         # cur.execute('select film_name from film_idols where idol_link = ?', (idol_1,))
+#         # g1 = cur.fetchall()
+#         # assert g2 == g1, "g1 != g2"
+#         # new_idol_id = get_idol_id()
+#         # cur.execute('insert into idols values (?, ?)', (new_idol_id, idol_1))
+#         # cur.execute('insert into idols values (?, ?)', (new_idol_id, idol_2))
+#         # for film in g2:
+#         #     cur.execute('delete from film_idols where film_name = ? and idol_link = ?', (film[0],idol_1))
+#         #     cur.execute('delete from film_idols where film_name = ? and idol_link = ?', (film[0],idol_2))
 
 
 
 
 
 
-# cur.execute ('select idol_link, count(*) from film_idols group by idol_link order by count(*) asc')
-# for idol, c in cur.fetchall():
-#     print (idol, c)
+# # cur.execute ('select idol_link, count(*) from film_idols group by idol_link order by count(*) asc')
+# # for idol, c in cur.fetchall():
+# #     print (idol, c)
 
-# cur.execute ('delete from film_idols where idol_link in (select idol_link from idols)')
-# conn.commit()
+# # cur.execute ('delete from film_idols where idol_link in (select idol_link from idols)')
+# # conn.commit()
 
 
-# cur.execute ('select count(*) from film_idols')
-# print ("initial film_idols count:", cur.fetchone()[0])
+# # cur.execute ('select count(*) from film_idols')
+# # print ("initial film_idols count:", cur.fetchone()[0])
 
-# cur.execute('SELECT COUNT(DISTINCT film_name) FROM film_idols')
-# print("Unique films:", cur.fetchone()[0])
+# # cur.execute('SELECT COUNT(DISTINCT film_name) FROM film_idols')
+# # print("Unique films:", cur.fetchone()[0])
 
-cur.execute("SELECT IDOL_LINK, film_name FROM film_idols WHERE IDOL_link LIKE '%Yurina%20Aizawa%'")
-for idol in cur.fetchall():
-    print (idol)    
+# cur.execute("SELECT IDOL_LINK, film_name FROM film_idols WHERE IDOL_link LIKE '%Yurina%20Aizawa%'")
+# for idol in cur.fetchall():
+#     print (idol)    
 
-cur.execute("SELECT IDOL_LINK FROM film_idols WHERE film_name = 'HGOT-055'")
-for idol in cur.fetchall():
-    print (idol)    
+# cur.execute("SELECT IDOL_LINK FROM film_idols WHERE film_name = 'HGOT-055'")
+# for idol in cur.fetchall():
+#     print (idol)    
 
 # cur.execute("SELECT FILM_NAME, IDOL_LINK FROM film_idols WHERE IDOL_LINK = 'https://jav.guru/actress/nanami-kawakami/'")
 # for idol in cur.fetchall():
