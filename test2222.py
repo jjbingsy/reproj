@@ -151,12 +151,19 @@ cur.execute ('''
 
              
              ''')
-
-for idol_1, idol_2, idol_3, ii in cur.fetchall():
-    if ii> 2:
-        print (idol_1, idol_2, idol_3, ii)
-
-
+with (open('myfile1121.txt', 'w')) as f:
+    for idol_1, idol_2, idol_3, ii in cur.fetchall():
+        cur.execute('select count(*) from film_idols where idol_link = ?', (idol_1,))
+        c1 = cur.fetchone()[0]
+        cur.execute('select count(*) from film_idols where idol_link = ?', (idol_2,))
+        c2 = cur.fetchone()[0]
+        cur.execute('select count(*) from film_idols where idol_link = ?', (idol_3,))
+        c3 = cur.fetchone()[0]
+        if ii == c1 and ii == c2 and ii == c3 and ii > 1:
+            print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
+            f.write(idol_1 +" " + idol_2 +" "+ idol_3 +" "+ str(ii) + '\n')
+        else:
+            pass #print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
 # cur.execute ('select * from idols order by idol_ID')
 # for row in cur.fetchall():
 #     print (row)
