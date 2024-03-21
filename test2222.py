@@ -159,7 +159,7 @@ with (open('myfile1121.txt', 'w')) as f:
         c2 = cur.fetchone()[0]
         cur.execute('select count(*) from film_idols where idol_link = ?', (idol_3,))
         c3 = cur.fetchone()[0]
-        if ii == c1 and ii == c2 and ii == c3 and ii > 1:
+        if ii == c1 and ii == c2 and ii == c3:
             print (idol_1, idol_2, idol_3, ii, c1, c2, c3)
             f.write(idol_1 +" " + idol_2 +" "+ idol_3 +" "+ str(ii) + '\n')
         else:
