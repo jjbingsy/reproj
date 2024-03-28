@@ -1,8 +1,7 @@
 import sqlite3
 import bs4
 import re
-from env.env_001 import FILMSOURCES_PATH, IDOLSDB_PATH
-
+from env.env_001 import FILMSOURCES_PATH
 
 conn = sqlite3.connect(FILMSOURCES_PATH)
 cr = conn.cursor()

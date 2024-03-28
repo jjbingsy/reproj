@@ -1,8 +1,7 @@
 import sqlite3
 import bs4
 import re
-from env.env_001 import FILMSOURCES_PATH, IDOLSDB_PATH
-
+from env.env_001 import FILMSOURCES_PATH
 #check original fim_sources
 # FILMSOURCES_PATH = "/home/bing/dat2/filmSources.db" #Original filmsources
 # IDOLSDB_PATH = "/home/bing/dat2/idolsdb.db" # 2nd film_sources
@@ -19,10 +18,10 @@ GROUP BY column_name
 HAVING COUNT(*) = 1
 '''
 conn_orig = sqlite3.connect(FILMSOURCES_PATH)
-conn2 = sqlite3.connect(IDOLSDB_PATH)
+#conn2 = sqlite3.connect(IDOLSDB_PATH)
 
 cur_orig = conn_orig.cursor()
-query_guru = "select name, url, content from filmsources where url not like '%/actress%' and url not like '%/series/%' and url not like '%jav.guru/?%' "
+query_guru = "select name, url, content from filmsources where url not like '%/actress%' and url not like '%/series/%' and url not like '%jav.guru/?%' and url not in( select url_source from film_idols) "
 #query_guru = "select name, url, content from filmsources where url like '%missav.com%'"
 #query_guru = "select name, url, content from filmsources where url not like '%jav.guru/?%' and url like '%jav.guru%'"
 cur_orig.execute(query_guru)
@@ -79,6 +78,6 @@ for film_name, url_source, content in guru:
 conn_orig.commit()
 conn_orig.close()
 # Commit the changes and close the connections
-conn2.commit()
+#conn2.commit()
 
-conn2.close()
+#conn2.close()

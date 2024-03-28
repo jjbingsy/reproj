@@ -1,6 +1,6 @@
 import sqlite3
 from icecream import ic
-from env.env_001 import FILMSOURCES_PATH, IDOLSDB_PATH
+from env.env_001 import FILMSOURCES_PATH
 IDOL_ID = 0
 
 def get_idol_id():
